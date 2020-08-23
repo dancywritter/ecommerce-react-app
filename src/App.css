@@ -1,38 +1,60 @@
-.App {
+*{margin:0px}
+
+.header{
+   height: 8vh;
+   box-shadow: 0px 5px 5px black;
+   display: flex;
+   
+}
+
+.header div {
+  width: 150px;
+  border-right: 1px solid black;
   text-align: center;
+  padding: 20px;
+  cursor: pointer;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main{
+  margin-top:15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.item {
+  border:1px solid black;
+  margin: 5px;
+  height:200px;
+  width: 95vw;
+  display: flex;
+  /* justify-content: space-between; */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.item-image{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item-image img{
+  height: 180px;
+  width: 180px;
+}
+
+.name-rs-star{
+  margin: 0px 100px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-around;
 }
 
-.App-link {
-  color: #61dafb;
+.description{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.edit-delete-button button{
+    margin: 0 5px;
 }
