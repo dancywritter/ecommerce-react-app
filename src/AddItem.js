@@ -8,8 +8,8 @@ class AddItem extends React.Component{
         this.state = {
             name:"",
             imgURL:"",
-            price:"",
-            star:"",
+            price:0,
+            star:0,
             description:""
      
         }
@@ -25,15 +25,15 @@ class AddItem extends React.Component{
 
     submitHandler = event => {
         event.preventDefault();
-        console.log("Event:" , this.state);
+        // console.log("Event:" , this.state);
 
         this.props.addItemToState(this.state);
 
         this.setState({
             name:"",
             imgURL:"",
-            price:"",
-            star:"",
+            price:0,
+            star:0,
             description:""
         });
     }

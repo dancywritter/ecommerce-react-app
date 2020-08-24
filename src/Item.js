@@ -17,6 +17,11 @@ class Item extends React.Component {
         this.props.deleteItemFromState(this.props.index);
     }
 
+    // function For Adding item into card
+    addItemToCard = () => {
+        this.props.addItemToCart(this.props.index);
+    }
+
     editItemSubmitHandler = (event) => {
         event.preventDefault();
         const updatedItem = {};
@@ -91,6 +96,7 @@ class Item extends React.Component {
                    <div className="description">
                         <h4 className="item-description">  {description} </h4>   
                         <div className="edit-delete-button">
+                            <button onClick={this.addItemToCard}>Add To Card</button>
                             <button onClick={this.toggleEditing}>Edit</button>
                             <button onClick={this.deleteItem}>Delete</button>
                         </div>
@@ -103,3 +109,17 @@ class Item extends React.Component {
 }
 
 export default Item;
+
+
+{/* <img 
+alt="Edit-button"
+className="action-icons"
+onClick={this.toggleEditing}
+src="https://image.flaticon.com/icons/svg/544/544347.svg"
+/>
+<img 
+alt="Delete-button"
+className="action-icons"
+onClick={this.deleteItem}
+src="https://image.flaticon.com/icons/svg/1345/1345823.svg"
+/> */}
