@@ -1,14 +1,83 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.header {
+  height: 8vh;
+  width: 100vw;
+  color: antiquewhite;
+  box-shadow: 0px 5px 5px black;
+  display: flex;
+  position: fixed;
+  background: rgb(20, 19, 19);
+  top: 0px;
+}
+
+.header div {
+  width: 20vw;
+  border-right: 1px solid black;
+  text-align: center;
+  padding: 20px;
+}
+.header div:hover{
+  background: blue;
+}
+.header div a{
+  color: hotpink;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main {
+  margin-top: 17vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.item {
+  border: 1px solid black;
+  margin: 5px;
+  height: 22vh;
+  width: 95vw;
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.item-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item-image img {
+  height: 160px;
+  width: 160px;
+}
+
+.name-rs-star {
+  margin: 0px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.edit-delete-button button {
+  margin: 0 5px;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -28,7 +97,6 @@ input {
   cursor: pointer;
 }
 
-
 .order {
   display: flex;
   justify-content: space-around;
@@ -37,8 +105,24 @@ input {
   padding: 5px;
   color: white;
   position: fixed;
-  top:8.5vh;
+  top: 8.5vh;
 }
 .order button {
-  display: block;
+  padding: 0px 20px;
+  cursor: pointer;
+}
+
+.cart-item {
+  display: inline-flex;
+  margin: 20px 10px;
+  border: 1px solid black;
+  padding: 5px;
+}
+.cart-item .right-block {
+  padding: 0 20px;
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
 }
