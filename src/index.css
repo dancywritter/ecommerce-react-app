@@ -27,3 +27,18 @@ input {
 .action-icons:hover {
   cursor: pointer;
 }
+
+
+.order {
+  display: flex;
+  justify-content: space-around;
+  background: #777;
+  width: 95vw;
+  padding: 5px;
+  color: white;
+  position: fixed;
+  top:8.5vh;
+}
+.order button {
+  display: block;
+}

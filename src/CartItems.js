@@ -18,13 +18,13 @@ class CartItems extends React.Component {
     }
 
     render(){
-        
-        const {name, imgURL, price, star,qty, inCart, description} = this.props.item;
+
+        const {name, imgURL, price, qty} = this.props.item;
         return(
             <div className="cart-item">
                 {/* <h1>Total Rs. {TotalItemPrice}</h1> */}
                 <div className="left-block">
-                    <img style={styles.image} src={imgURL}/>
+                    <img style={styles.image} src={imgURL} alt="product-pick"/>
                 </div>
                 <div className="right-block">
                     <div style={{fontSize:25}}>{name}</div>
