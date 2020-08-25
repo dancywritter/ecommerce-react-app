@@ -72,6 +72,10 @@ class App extends React.Component {
       .catch((err) => {
         console.log("Error: ", err);
       });
+      
+      this.setState({
+        displayItems:true
+      });
     // const newItems = this.state.items.concat(item);
   };
 

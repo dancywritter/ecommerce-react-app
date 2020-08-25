@@ -10,7 +10,8 @@ class AddItem extends React.Component {
       price: 0,
       star: 0,
       description: "",
-      image:null
+      image:null,
+      progress:0
     };
   }
 
@@ -31,7 +32,8 @@ class AddItem extends React.Component {
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on('state_changed',
     (snapshot) => {
-
+        const progress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
+        this.setState({progress});
     },
     (err)=>{
       console.log(err);
@@ -47,6 +49,7 @@ class AddItem extends React.Component {
   submitHandler = (event) => {
     event.preventDefault();
     delete this.state.image;
+    delete this.state.progress;
     // console.log("Event:" , this.state);
     this.props.addItemToState(this.state);
 
@@ -63,9 +66,9 @@ class AddItem extends React.Component {
     return (
       <div style={formContainer}>
         <p style={heading}>Add Product</p>
+        <progress value={this.state.progress} max="100" style={{width:'350px',fontSize:'30px'}}/>
         <label htmlFor='image'>Image:</label>
         <div style={style.uploadImage}>
-        
           <div>
           <input
             type='file'
