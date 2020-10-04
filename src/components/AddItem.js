@@ -1,5 +1,5 @@
 import React from "react";
-import {storage} from './firebase';
+import {storage} from '../firebase';
 
 class AddItem extends React.Component {
   constructor() {
@@ -16,9 +16,18 @@ class AddItem extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+
+    if (event.target.name === "price" && event.target.value < 0){
+      alert("Please Enter Valid Price Value of product");
+      return;
+    }
+    if (event.target.name === "star" && event.target.value < 0) {
+      alert("Please Enter Valid Star Value of product");
+      return;
+    }
+      this.setState({
+        [event.target.name]: event.target.value,
+      });
   }
 
   handleChangeForImage = (event) => {

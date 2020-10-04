@@ -22,6 +22,10 @@ class Item extends React.Component {
 
   editItemSubmitHandler = (event) => {
     event.preventDefault();
+    if (this.newPrice.value < 0 || this.newStar.value < 0){
+      alert("please enter valid positive entries for price or star");
+      return;
+    };
     const updatedItem = {};
     updatedItem.newName = this.newName.value;
     updatedItem.newPrice = this.newPrice.value;
@@ -97,9 +101,27 @@ class Item extends React.Component {
           <div className='description'>
             <h4 className='item-description'> {description} </h4>
             <div className='edit-delete-button'>
-              <button onClick={this.addItemToCard}>Add To Card</button>
-              <button onClick={this.toggleEditing}>Edit</button>
-              <button onClick={this.deleteItem}>Delete</button>
+              {/* <button onClick={this.addItemToCard}>Add To Card</button> */}
+              {/* <button onClick={this.toggleEditing}>Edit</button> */}
+              {/* <button onClick={this.deleteItem}>Delete</button> */}
+              <img
+                alt='Delete'
+                className='action-icons'
+                src='https://www.flaticon.com/premium-icon/icons/svg/2397/2397538.svg'
+                onClick={this.addItemToCard}
+              />
+              <img
+                alt='Delete'
+                className='action-icons'
+                src='https://www.flaticon.com/svg/static/icons/svg/2946/2946209.svg'
+                onClick={this.toggleEditing}
+              />
+              <img
+                alt='Delete'
+                className='action-icons'
+                src='https://image.flaticon.com/icons/svg/1345/1345823.svg'
+                onClick={this.deleteItem}
+              />
             </div>
           </div>
         </div>

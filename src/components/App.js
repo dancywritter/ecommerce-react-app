@@ -1,9 +1,6 @@
 import React from "react";
-import Item from "./Item";
-import AddItem from "./AddItem";
-import Navbar from "./Navbar";
-import CartItems from "./CartItems";
-import firebase from "./firebase";
+import {Item, AddItem, Navbar, CartItems} from "./";
+import firebase from "../firebase";
 
 class App extends React.Component {
   constructor() {
