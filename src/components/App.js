@@ -1,6 +1,7 @@
 import React from "react";
 import {Item, AddItem, Navbar, CartItems} from "./";
 import firebase from "../firebase";
+import { fetchProducts } from "../actions";
 
 class App extends React.Component {
   constructor() {
@@ -15,6 +16,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
+    const { store } = this.props;
+
+    store.subscribe(()=>{
+      console.log("UPDATED");
+      this.forceUpdate();
+    });
+
     this.db
       .collection("items")
       //  .orderBy('title','asc')
@@ -25,11 +34,15 @@ class App extends React.Component {
           return data;
         });
 
+        store.dispatch(fetchProducts(items));
+
         this.setState({
           items: items,
           loading: false,
         });
       });
+
+      console.log("AfterDispatchState:", this.props.store.getState());
   }
 
   // FOR SHOWING PRODUCTS
@@ -93,14 +106,6 @@ class App extends React.Component {
       .catch((err) => {
         console.log("Error in Deleting product From Database", err);
       });
-    // const newItems = this.state.items.filter((item, i) => {
-
-    //   return (index === i)? false : true;
-    // });
-
-    // this.setState({
-    //   items: newItems
-    // });
   };
 
   // function For Adding item into card
@@ -119,23 +124,6 @@ class App extends React.Component {
       .catch((err) => {
         console.log(`Error in Adding product into Cart ${err}`);
       });
-    // const newItems = this.state.items.map((item, i) => {
-    //   if(i === index && !item.inCart) {
-    //     this.state.TotalItemInCart += item.qty;
-    //     this.state.TotalItemInCartPrice += item.qty * item.price;
-    //     return {
-    //       ...item,
-    //       inCart: true
-    //     }
-    //   }
-    //   return item;
-    // });
-
-    // this.setState({
-    //   items: newItems
-    // },() => {
-    //   // console.log("AFTER",this.state.items);
-    // });
   };
 
   // FOR EDITING PRODUCTS DETAILS
@@ -157,23 +145,6 @@ class App extends React.Component {
       .catch((error) => {
         console.log("Error in updating Product :", error);
       });
-    // const newItems = this.state.items.map((item, i) => {
-    //   if(index === i) {
-    //     alert(`Product Named: ${item.name} has been modified!`);
-    //     return {
-    //       ...item,
-    //       name: newItem.newName,
-    //       price: newItem.newPrice,
-    //       star: newItem.newStar,
-    //       description: newItem.newDescription
-    //     };
-    //   }
-    //   return item;
-    // });
-
-    // this.setState({
-    //   items: newItems
-    // });
   };
 
   // FOR INCREASE PRODUCT QUANTITY IN CARD
@@ -191,20 +162,6 @@ class App extends React.Component {
       .catch((error) => {
         console.log("Error i updating Product :", error);
       });
-    // const newItems = this.state.items.map((item, i) =>{
-    //   if(index === i) {
-    //     this.state.TotalItemInCart += 1;
-    //     this.state.TotalItemInCartPrice += Number(item.price);
-    //     return {
-    //         ...item,
-    //         qty: item.qty+1
-    //     }
-    //   }
-    //   return item
-    // });
-    // this.setState({
-    //   items:newItems
-    // });
   };
 
   // FOR DECREASING PRODUCT QUANTITY IN CARD
@@ -225,20 +182,6 @@ class App extends React.Component {
       .catch((error) => {
         console.log("Error i updating Product :", error);
       });
-    // const newItems = this.state.items.map((item, i) =>{
-    //   if(index === i && item.qty >= 1) {
-    //     this.state.TotalItemInCart -= 1;
-    //     this.state.TotalItemInCartPrice -= item.price;
-    //     return {
-    //         ...item,
-    //         qty: item.qty-1
-    //     }
-    //   }
-    //   return item
-    // });
-    // this.setState({
-    //   items:newItems
-    // });
   };
 
   // FOR REMOVING ITEM FROM CART
@@ -257,22 +200,6 @@ class App extends React.Component {
       .catch((error) => {
         console.log("Error in removing Product from Cart:", error);
       });
-    // const newItems = this.state.items.map((item, i) =>{
-    //   if(index === i) {
-    //     this.state.TotalItemInCart -= item.qty;
-    //     this.state.TotalItemInCartPrice -= item.qty * item.price;
-    //     alert(`Wanted To Remove ${item.name} From Cart?`);
-    //     return {
-    //         ...item,
-    //         qty: 1,
-    //         inCart:false
-    //     }
-    //   }
-    //   return item
-    // });
-    // this.setState({
-    //   items:newItems
-    // });
   };
   ascendingOrder = () => {
     const newItems = this.state.items.map((val) => {
@@ -317,7 +244,9 @@ class App extends React.Component {
   };
 
   render() {
-    const { items, displayItems, displayCart, loading } = this.state;
+    console.log("State:", this.props.store.getState());
+    const { products } = this.props.store.getState();
+    const { displayItems, displayCart, loading } = this.state;
     return (
       <div className='App'>
         <Navbar
@@ -335,7 +264,7 @@ class App extends React.Component {
             <button onClick={this.descendingOrder}>descending</button>
           </div>
           {displayCart ? (
-            items.map((item, index) => {
+            products.map((item, index) => {
               return item.inCart ? (
                 <CartItems
                   key={index}
@@ -346,11 +275,11 @@ class App extends React.Component {
                   onDeleteProduct={this.onDeleteProduct}
                 />
               ) : (
-                <br index={index}/>
+                <br index={index} />
               );
             })
           ) : displayItems ? (
-            items.map((item, index) => {
+            products.map((item, index) => {
               return (
                 <Item
                   key={index}
