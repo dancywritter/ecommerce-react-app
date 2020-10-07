@@ -1,7 +1,7 @@
 import React from "react";
 import {Item, AddItem, Navbar, CartItems} from "./";
 import firebase from "../firebase";
-import { fetchProducts } from "../actions";
+import { fetchProducts, assOrder, disOrder } from "../actions";
 
 class App extends React.Component {
   constructor() {
@@ -16,17 +16,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-
     const { store } = this.props;
 
-    store.subscribe(()=>{
+    store.subscribe(() => {
       console.log("UPDATED");
       this.forceUpdate();
     });
 
     this.db
       .collection("items")
-      //  .orderBy('title','asc')
       .onSnapshot((snapshot) => {
         const items = snapshot.docs.map((doc) => {
           const data = doc.data();
@@ -41,8 +39,6 @@ class App extends React.Component {
           loading: false,
         });
       });
-
-      console.log("AfterDispatchState:", this.props.store.getState());
   }
 
   // FOR SHOWING PRODUCTS
@@ -82,10 +78,10 @@ class App extends React.Component {
       .catch((err) => {
         console.log("Error: ", err);
       });
-      
-      this.setState({
-        displayItems:true
-      });
+
+    this.setState({
+      displayItems: true,
+    });
     // const newItems = this.state.items.concat(item);
   };
 
@@ -201,28 +197,23 @@ class App extends React.Component {
         console.log("Error in removing Product from Cart:", error);
       });
   };
+  
   ascendingOrder = () => {
-    const newItems = this.state.items.map((val) => {
-      return val;
-    });
-    newItems.sort(function (a, b) {
+    const { products } = this.props.store.getState();
+    products.sort(function (a, b) {
       return a.price - b.price;
     });
-    this.setState({
-      items: newItems,
-    });
+
+    this.props.store.dispatch(assOrder(products));
   };
 
   descendingOrder = () => {
-    const newItems = this.state.items.map((val) => {
-      return val;
-    });
-    newItems.sort(function (a, b) {
+    const { products } = this.props.store.getState();
+    products.sort(function (a, b) {
       return b.price - a.price;
     });
-    this.setState({
-      items: newItems,
-    });
+
+    this.props.store.dispatch(disOrder(products));
   };
 
   TotalItemInCart = () => {
